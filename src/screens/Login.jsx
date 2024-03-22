@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -10,8 +11,22 @@ export default function Login() {
     }
   );
 
+  const [errorMessage, setErrorMessage] = useState("")
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try{
+       const response = await axios.post('',data);
+       const {jwt_token, username} = response.data;
+
+       localStorage.setItem('jwt_token', jwt_token);
+       localStorage.setItem('username', username);
+
+       console.log(jwt_token);
+    }catch(error){
+        setErrorMessage("Somthng went wrong")
+    }
   }
   
   const handleChange = (e) => {
@@ -25,16 +40,18 @@ export default function Login() {
         <div className='flex flex-col gap-3 mt-8'>
           <div className='mt-1'>
             <label className='text-lg'>Email :
-              <input className='border-2 w-full px-2 rounded-md' type='email' 
+              <input required className='border-2 w-full px-2 rounded-md' type='email' 
               name='email' placeholder="Email" value={data.email} onChange={handleChange} />
             </label>
           </div>
           <div className='mt-1'>
             <label className='text-lg font-medium'>Password:
-              <input className='border-2 w-full px-2 rounded-md' type='password' 
+              <input required className='border-2 w-full px-2 rounded-md' type='password' 
               name='password' placeholder="Password" value={data.password} onChange={handleChange}/>
             </label>
           </div>
+
+          {errorMessage && <div className="text-red-500">{errorMessage}</div>}
 
           <div className='flex gap-3 justify-center'>
             <button className='text-white bg-black p-2 px-10 mt-3 rounded-2xl' type='submit'>Submit</button>

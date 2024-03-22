@@ -35,11 +35,8 @@ export default function Login() {
     setErrorMessage(""); // Clear error message if passwords match
      try {
       const response = await axios.post('/api/signup', data);
-
-      console.log(response.data);
      } catch (error) {
-      console.error(error);
-      setErrorMessage("An error occurred while signing up. Please try again.");
+      setErrorMessage("Somthing went wrong try again") 
      }
   }
 
@@ -50,25 +47,25 @@ export default function Login() {
         <div className='flex flex-col gap-3 mt-8'>
           <div className='mt-1'>
             <label htmlFor='name' className='text-lg font-medium'>Name: </label>
-            <input className='border-2 w-full px-2 rounded-md' type='text' name='name'
+            <input required className='border-2 w-full px-2 rounded-md' type='text' name='name'
               id='name' placeholder="Name" value={data.name} onChange={handleChange} />
 
           </div>
           <div className='mt-1'>
             <label htmlFor='email' className='text-lg'>Email :</label>
-            <input className='border-2 w-full px-2 rounded-md' type='email' name='email'
+            <input required className='border-2 w-full px-2 rounded-md' type='email' name='email'
               id='email' placeholder="Email" value={data.email} onChange={handleChange} />
 
           </div>
           <div className='mt-1'>
             <label htmlFor='password' className='text-lg font-medium'>Creat Password: </label>
-            <input className='border-2 w-full px-2 rounded-md' type='password' name='password'
+            <input required className='border-2 w-full px-2 rounded-md' type='password' name='password'
               id='password' placeholder="Password" value={data.password} onChange={handleChange} />
 
           </div>
           <div className='mt-1'>
             <label htmlFor='confPassword' className='text-lg font-medium'>Confirm Password:</label>
-            <input className='border-2 w-full px-2 rounded-md' type='text' name='confPassword'
+            <input required className='border-2 w-full px-2 rounded-md' type='text' name='confPassword'
               id='confPassword' placeholder="Password" value={data.confPassword} onChange={handleChange} />
 
           </div>
