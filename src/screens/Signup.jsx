@@ -34,7 +34,7 @@ export default function Login() {
 
     setErrorMessage(""); // Clear error message if passwords match
      try {
-      const response = await axios.post('/api/signup', data);
+      const response = await axios.post('http://localhost:8080/auth/add', data);
      } catch (error) {
       setErrorMessage("Somthing went wrong try again") 
      }

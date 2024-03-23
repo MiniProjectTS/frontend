@@ -1,38 +1,44 @@
+import React, { useState } from 'react';
 import axios from 'axios';
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useAuthDispatch } from '../authContext';
+import {login} from '../store/authSlice'
+import { Link } from 'react-router-dom';
 
 export default function Login() {
+ const [data, setData] = useState({
+    email: '',
+    password: '',
+ });
 
-  const [data, setData] = useState(
-    {
-      email : "",
-      password : ""
-    }
-  );
+ const [errorMessage, setErrorMessage] = useState('');
+ const dispatch = useAuthDispatch();
 
-  const [errorMessage, setErrorMessage] = useState("")
-
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{
-       const response = await axios.post('',data);
-       const {jwt_token, username} = response.data;
+    try {
+      const response = await axios.post('http://localhost:8080/auth/login', data);
+      if(response.data && response.data.jwtToken && response.data.username){
+      const { jwtToken, username } = response.data;
+      console.log(response);
+      dispatch({ type: 'LOGIN', payload: { jwtToken, username } });
+      localStorage.setItem('jwt_token', jwtToken);
+      localStorage.setItem('username', username);
 
-       localStorage.setItem('jwt_token', jwt_token);
-       localStorage.setItem('username', username);
-
-       console.log(jwt_token);
-    }catch(error){
-        setErrorMessage("Somthng went wrong")
+      console.log(jwtToken);
+      console.log(username);
+      }else{
+        setErrorMessage('Invalid response from server');
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage('Something went wrong');
     }
-  }
-  
-  const handleChange = (e) => {
-    setData(prevData => ({...prevData, [e.target.name]: e.target.value}));
-  }
-  
+ };
+
+ const handleChange = (e) => {
+    setData((prevData) => ({ ...prevData, [e.target.name]: e.target.value }));
+ };
   return (
     <div className='flex items-center justify-center lb:w-1/2 mx-20 pt-24 min-h-screen '>
       <form onSubmit={handleSubmit} className='border border-black rounded-2xl p-5 lg:p-10 shadow-2xl'>

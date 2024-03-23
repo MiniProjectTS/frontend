@@ -1,16 +1,17 @@
-import React from 'react'
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomeNavbar from "./components/HomeNavbar"
-import Footer from "./components/Footer"
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from './screens/Home';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
-
+import { AuthProvider } from './authContext'; // Import AuthProvider
 
 export default function App() {
-  return (
-       <Router>
-        <HomeNavbar />
+ return (
+    <AuthProvider> {/* Wrap your app with AuthProvider */}
+      <Router>
+        <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
@@ -18,5 +19,6 @@ export default function App() {
         </Routes>
         <Footer />
       </Router>
-  )
+    </AuthProvider>
+ );
 }
