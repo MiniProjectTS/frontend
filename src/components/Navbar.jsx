@@ -28,7 +28,7 @@ export default function Navbar() {
             <ul className='flex gap-10 justify-center'>
               {isAuthenticated ? (
                 <>
-                 <li><Link to={'/add-teacher'}>Add Teacher</Link></li>
+                 <li><Link to={'/add-department'}>Add Department</Link></li>
                  <li><Link to={'/add-class'}>Add Class</Link></li>
                  <li onClick={handelLogout}>Logout</li>
                 </>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
 
@@ -9,9 +9,14 @@ export default function Login() {
   const [data, setData] = useState({
     name: "",
     email: "",
-    password: "",
-    confPassword: ""
+    password: ""
   });
+
+  const [confPassword, setConfPassword] = useState({
+    confPassword: ""
+  })
+
+  const navigate = useNavigate();
 
   // this state used to manage status of conparesion of password and conform password 
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,21 +26,28 @@ export default function Login() {
   const handleChange = (e) => {
     setData(prevData => ({ ...prevData, [e.target.name]: e.target.value }));
   }
+  const handleChangeConfPassword = (e) => {
+    setConfPassword(prevData => ({ ...prevData, [e.target.name]: e.target.value }));
+  }
 
 
   // handle Submit this function send data at Back end  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (data.password !== data.confPassword) {
+    if (data.password !== confPassword.confPassword) {
       setErrorMessage("Passwords do not match.");
       return; // Prevent form submission
     }
 
     setErrorMessage(""); // Clear error message if passwords match
      try {
-      const response = await axios.post('http://localhost:8080/auth/add', data);
+      const responce = await axios.post('http://localhost:8080/auth/add', data);
+      if(responce.status == 201){
+          navigate('/login')
+      }
      } catch (error) {
+      console.log(error);
       setErrorMessage("Somthing went wrong try again") 
      }
   }
@@ -66,7 +78,7 @@ export default function Login() {
           <div className='mt-1'>
             <label htmlFor='confPassword' className='text-lg font-medium'>Confirm Password:</label>
             <input required className='border-2 w-full px-2 rounded-md' type='text' name='confPassword'
-              id='confPassword' placeholder="Password" value={data.confPassword} onChange={handleChange} />
+              id='confPassword' placeholder="Password" value={confPassword.confPassword} onChange={handleChangeConfPassword} />
 
           </div>
 

@@ -1,44 +1,44 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuthDispatch } from '../authContext';
-import {login} from '../store/authSlice'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
- const [data, setData] = useState({
+  const [data, setData] = useState({
     email: '',
     password: '',
- });
+  });
 
- const [errorMessage, setErrorMessage] = useState('');
- const dispatch = useAuthDispatch();
+  const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useAuthDispatch();
+  const navigate = useNavigate();
 
- const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post('http://localhost:8080/auth/login', data);
-      if(response.data && response.data.jwtToken && response.data.username){
-      const { jwtToken, username } = response.data;
-      console.log(response);
-      dispatch({ type: 'LOGIN', payload: { jwtToken, username } });
-      localStorage.setItem('jwt_token', jwtToken);
-      localStorage.setItem('username', username);
 
-      console.log(jwtToken);
-      console.log(username);
-      }else{
+      if (response.data && response.data.jwtToken && response.data.username) { 
+        const { jwtToken, username } = response.data;
+        dispatch({ type: 'LOGIN', payload: { jwtToken, username } });
+        localStorage.setItem('jwt_token', jwtToken);
+        localStorage.setItem('username', username);
+        
+        navigate('/add-department');
+        
+      } else {
         setErrorMessage('Invalid response from server');
       }
     } catch (error) {
       console.log(error);
       setErrorMessage('Something went wrong');
     }
- };
+  };
 
- const handleChange = (e) => {
+  const handleChange = (e) => {
     setData((prevData) => ({ ...prevData, [e.target.name]: e.target.value }));
- };
+  };
   return (
     <div className='flex items-center justify-center lb:w-1/2 mx-20 pt-24 min-h-screen '>
       <form onSubmit={handleSubmit} className='border border-black rounded-2xl p-5 lg:p-10 shadow-2xl'>
@@ -46,14 +46,14 @@ export default function Login() {
         <div className='flex flex-col gap-3 mt-8'>
           <div className='mt-1'>
             <label className='text-lg'>Email :
-              <input required className='border-2 w-full px-2 rounded-md' type='email' 
-              name='email' placeholder="Email" value={data.email} onChange={handleChange} />
+              <input required className='border-2 w-full px-2 rounded-md' type='email'
+                name='email' placeholder="Email" value={data.email} onChange={handleChange} />
             </label>
           </div>
           <div className='mt-1'>
             <label className='text-lg font-medium'>Password:
-              <input required className='border-2 w-full px-2 rounded-md' type='password' 
-              name='password' placeholder="Password" value={data.password} onChange={handleChange}/>
+              <input required className='border-2 w-full px-2 rounded-md' type='password'
+                name='password' placeholder="Password" value={data.password} onChange={handleChange} />
             </label>
           </div>
 

@@ -6,6 +6,7 @@ import Home from './screens/Home';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
 import { AuthProvider } from './authContext'; // Import AuthProvider
+import AddDepartment from './screens/AddDepartment';
 
 export default function App() {
  return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/add-department' element={<AddDepartment />} />
         </Routes>
         <Footer />
       </Router>
