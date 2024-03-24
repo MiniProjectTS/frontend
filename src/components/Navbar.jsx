@@ -29,7 +29,13 @@ export default function Navbar() {
               {isAuthenticated ? (
                 <>
                  <li><Link to={'/add-department'}>Add Department</Link></li>
-                 <li><Link to={'/add-class'}>Add Class</Link></li>
+                 <li><Link to={'/add-course'}>Add Course</Link></li>
+                 <li><Link to={'/add-lab'}>Add Lab</Link></li>
+                 <li><Link to={'/add-teacher'}>Add Teacher</Link></li>
+                 <li><Link to={'/add-labtecher'}>Add Lab Teacher</Link></li>
+                 <li><Link to={'/add-room'}>Add Room</Link></li>
+                 <li><Link to={'/add-time'}>Add Time</Link></li>
+
                  <li onClick={handelLogout}>Logout</li>
                 </>
               ) : (
