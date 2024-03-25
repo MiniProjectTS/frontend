@@ -1,27 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../authContext'; // Import useAuth from AuthContext
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../authContext'; 
 import { useAuthDispatch } from '../authContext';
 
-
 export default function Navbar() {
- const { isAuthenticated } = useAuth(); // Use the useAuth hook to access the authentication state
+ const { isAuthenticated } = useAuth(); 
  const dispatch = useAuthDispatch();
+ const navigate = useNavigate();
 
- const handelLogout = (e) => {
-    dispatch({type : 'LOGOUT'});
-  
+ const handleLogout = (e) => {
+    e.preventDefault(); 
+    dispatch({ type: 'LOGOUT' });
+
     localStorage.removeItem('jwt_token');
     localStorage.removeItem('username');
 
+    navigate('/');
  }
 
  return (
     <div className='fixed top-0 left-0 right-0 bg-PrimaryColor drop-shadow-xl z-50'>
       <nav className='flex justify-between mx-28 items-center p-1'>
         <div className='font-logo font-bold text-lg flex flex-col gap-0'>
-          <p><Link to={'/'}>TIMETABLE</Link></p>
-          <p><Link to={'/'}>GENERATOR</Link></p>
+          <p>TIMETABLE</p>
+          <p>GENERATOR</p>
         </div>
         <div>
           <nav>
@@ -35,8 +37,7 @@ export default function Navbar() {
                  <li><Link to={'/add-labtecher'}>Add Lab Teacher</Link></li>
                  <li><Link to={'/add-room'}>Add Room</Link></li>
                  <li><Link to={'/add-time'}>Add Time</Link></li>
-
-                 <li onClick={handelLogout}>Logout</li>
+                 <li className=' hover: cursor-pointer ' onClick={handleLogout}>Logout</li> {/* Use an anchor tag for logout */}
                 </>
               ) : (
                 <>

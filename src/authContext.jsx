@@ -1,5 +1,4 @@
-// src/AuthContext.js
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import authReducer from './store/authReducer';
 
 const AuthStateContext = createContext();
@@ -10,6 +9,24 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: false,
     jwtToken: null,
     username: null,
+ }, () => {
+    // Initialize state from local storage
+    const token = localStorage.getItem('jwt_token');
+    const username = localStorage.getItem('username');
+
+    if (token && username) {
+      return {
+        isAuthenticated: true,
+        jwtToken: token,
+        username: username,
+      };
+    }
+
+    return {
+      isAuthenticated: false,
+      jwtToken: null,
+      username: null,
+    };
  });
 
  return (
