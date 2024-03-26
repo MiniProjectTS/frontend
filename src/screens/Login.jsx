@@ -28,7 +28,7 @@ export default function Login() {
         navigate('/add-department');
         
       } else {
-        setErrorMessage('Invalid response from server');
+        setErrorMessage('Invalid Credential');
       }
     } catch (error) {
       console.log(error);

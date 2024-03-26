@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const AddDepartment = () => {
   const [selectedOption, setSelectedOption] = useState({
-    depName: ''
+    name: ''
   });
 
   const options = [
@@ -39,7 +39,7 @@ const AddDepartment = () => {
   const handleChange = (event) => {
     setSelectedOption(prevState => ({
       ...prevState,
-      depName: event.target.value
+      name: event.target.value
     }));
   };
 
@@ -50,9 +50,10 @@ const AddDepartment = () => {
         <div className='flex flex-col gap-3 mt-8'>
           <div className='mt-1'>
             <label className='text-lg'>Department :
-              <select className='border-2 w-full px-2 rounded-md' value={selectedOption.depName} onChange={handleChange}>
+              <select className='border-2 w-full px-2 rounded-md' value={selectedOption.name} onChange={handleChange}>
+              <option value="">Select Department</option>
                 {options.map((option) => (
-                  <option key={option.value} value={option.value} name='depName'>
+                  <option key={option.value} value={option.value} name='deptName'>
                     {option.label}
                   </option>
                 ))}
