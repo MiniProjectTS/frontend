@@ -1,11 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const AddCourses = () => {
-    const [departments, setDepartments] = useState(["IT", "CS", "EE"]);
+    const [departments, setDepartments] = useState([
+                                                    "Infromation Technology",
+                                                     "Computer Porograming",
+                                                     "Artificial Inteligence & Data Science",
+                                                     "Computer Science Design",
+                                                     "Food Processing Technology",
+                                                     "Electrical Engineering",
+                                                     "Electrical & Communication Engineering",
+                                                     "Mechanical Engineering "
+                                                    ]);
     const [selectedDepartment, setSelectedDepartment] = useState("");
     const [course, setCourse] = useState("");
-    const [formData, setFormData] = useState([]); // Initialize as an empty array
+    const [formData, setFormData] = useState([]); 
+    const navigate = useNavigate();
 
     const handleAddCourse = () => {
         if (selectedDepartment && course) {
@@ -26,11 +37,12 @@ const AddCourses = () => {
         };
         console.log(dataToSend);
         axios
-            .post("https://your-api-endpoint.com/courses", dataToSend)
+            .post("http://localhost:8080/api/courses", dataToSend)
             .then((res) => {
-                console.log(res.data);
-                // Optionally, clear formData after successful submission
                 setFormData([]);
+                if(res.status==201){
+                    navigate('/add-lab')
+                }
             })
             .catch((error) => {
                 console.error(error);
@@ -69,7 +81,7 @@ const AddCourses = () => {
                     />
                 </div>
                 <div className='flex gap-3 justify-center'>
-                    <button className='text-white bg-black p-2 px-10 mt-3 rounded-2xl' onClick={handleAddCourse}>Add Course</button>
+                    <button className='text-white bg-black p-2 px-10 mt-3 rounded-2xl' type="button" onClick={handleAddCourse}>Add Course</button>
                     <button className='text-white bg-black p-2 px-10 mt-3 rounded-2xl' type='submit'>Submit</button>
                 </div>
             </form>
@@ -78,7 +90,7 @@ const AddCourses = () => {
                     {formData.map((course, i) => (
                         <li className='flex justify-center items-center gap-5 border border-black p-3 rounded-lg ' key={i}>
                             <div>
-                                {course.course}
+                                {course.name}
                             </div>
                             <button className='text-white bg-black p-2 px-5 mt-3 rounded-2xl items-center justify-center' onClick={() => handleRemove(i)}>X</button>
                         </li>

@@ -11,8 +11,11 @@ const AddDepartment = () => {
     { value: "IT", label: "Infromation Technology" },
     { value: "CP", label: "Computer Porograming" },
     { value: "AI/DS", label: "Artificial Inteligence & Data Science" },
-    { value: "CSD", label: "Computer Science Design" }
-
+    { value: "CSD", label: "Computer Science Design" },
+    { value: "FPT", label: "Food Processing Technology" },
+    { value: "EE", label: "Electrical Engineering" },
+    { value: "EC", label: "Electrical & Communication Engineering" },
+    { value: "ME", label: "Mechanical Engineering " },
   ];
 
   const [errorMessage, setErrorMessage] = useState('');

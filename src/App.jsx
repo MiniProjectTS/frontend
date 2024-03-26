@@ -10,9 +10,6 @@ import AddDepartment from './screens/AddDepartment';
 import AddCourse from './screens/AddCourse';
 import AddLab from './screens/AddLab';
 import AddTeacher from './screens/AddTeacher';
-import AddLabTeacher from './screens/AddLabTeacher';
-import AddRoom from './screens/AddRoom';
-import AddTime from './screens/AddTime';
 
 export default function App() {
  return (
@@ -27,10 +24,6 @@ export default function App() {
           <Route path='/add-course' element={<AddCourse />} />
           <Route path='/add-lab' element={<AddLab />} />
           <Route path='/add-teacher' element={<AddTeacher />} />
-          <Route path='/add-labteacher' element={<AddLabTeacher />} />
-          <Route path='/add-room' element={<AddRoom />} />
-          <Route path='/add-time' element={<AddTime />} />
-
         </Routes>
         <Footer />
       </Router>

@@ -34,9 +34,6 @@ export default function Navbar() {
                  <li><Link to={'/add-course'}>Add Course</Link></li>
                  <li><Link to={'/add-lab'}>Add Lab</Link></li>
                  <li><Link to={'/add-teacher'}>Add Teacher</Link></li>
-                 <li><Link to={'/add-labtecher'}>Add Lab Teacher</Link></li>
-                 <li><Link to={'/add-room'}>Add Room</Link></li>
-                 <li><Link to={'/add-time'}>Add Time</Link></li>
                  <li className=' hover: cursor-pointer ' onClick={handleLogout}>Logout</li> {/* Use an anchor tag for logout */}
                 </>
               ) : (
