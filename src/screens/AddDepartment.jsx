@@ -28,7 +28,7 @@ const AddDepartment = () => {
     try {
       console.log(selectedOption);
 
-      const response = await axios.post('http://localhost:8080/auth/login', selectedOption);
+      const response = await axios.post('http://localhost:8080/api/departments', selectedOption);
 
       if (response.status == 201) {
         navigate('/add-course')
@@ -47,7 +47,7 @@ const AddDepartment = () => {
   };
 
   return (
-    <div className='flex items-center justify-center lb:w-1/2 mx-20 pt-24 min-h-screen '>
+    <div className='flex items-center justify-center lb:w-1/2 mx-20 pt-24 min-h-screen'>
       <form onSubmit={handleSubmit} className='border border-black rounded-2xl p-5 lg:p-10 shadow-2xl'>
         <h1 className='text-center text-3xl m-1 p-5 font-bold font-logo bg-PrimaryColor'>Add Department</h1>
         <div className='flex flex-col gap-3 mt-8'>
