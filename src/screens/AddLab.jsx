@@ -37,7 +37,7 @@ const AddLab = () => {
         };
         console.log(dataToSend);
         axios
-            .post("http://localhost:8080/api/courses", dataToSend)
+            .post("http://localhost:8080/api/laboratories", dataToSend)
             .then((res) => {
                 setFormData([]);
                 if(res.status == 201){
