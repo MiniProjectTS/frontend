@@ -107,7 +107,7 @@ const AddTeacher = () => {
     };
 
     return (
-        <div className='flex flex-col items-center justify-center lb:w-1/2 mx-20 pt-24 min-h-screen'>
+        <div className='flex flex-col-reverse items-center justify-center lb:w-1/2 mx-20 pt-24 min-h-screen'>
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
@@ -159,7 +159,7 @@ const AddTeacher = () => {
                     </div>
                 </form>
             )}
-            {isGenerating && <div>Generating timetable...</div>}
+            {isGenerating && <div className=' text-2xl bg-PrimaryColor p-5 my-10'>Generating timetable...</div>}
         </div>
     );
 };

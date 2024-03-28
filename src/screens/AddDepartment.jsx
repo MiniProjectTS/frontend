@@ -8,9 +8,9 @@ const AddDepartment = () => {
   });
 
   const options = [
-    { value: "IT", label: "Infromation Technology" },
-    { value: "CP", label: "Computer Porograming" },
-    { value: "AI/DS", label: "Artificial Inteligence & Data Science" },
+    { value: "IT", label: "Information Technology" },
+    { value: "CP", label: "Computer Programming" },
+    { value: "AI/DS", label: "Artificial Intelligence & Data Science" },
     { value: "CSD", label: "Computer Science Design" },
     { value: "FPT", label: "Food Processing Technology" },
     { value: "EE", label: "Electrical Engineering" },

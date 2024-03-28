@@ -4,9 +4,9 @@ import axios from "axios";
 
 const AddLab = () => {
     const [departments, setDepartments] = useState([
-                                                    "Infromation Technology",
-                                                     "Computer Porograming",
-                                                     "Artificial Inteligence & Data Science",
+                                                    "Information Technology",
+                                                     "Computer Programming",
+                                                     "Artificial Intelligence & Data Science",
                                                      "Computer Science Design",
                                                      "Food Processing Technology",
                                                      "Electrical Engineering",
