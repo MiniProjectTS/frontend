@@ -9,6 +9,7 @@ const AddTeacher = () => {
     const [allCourses, setAllCourses] = useState([]);
     const [allLabs, setAllLabs] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [isGenerating, setIsGenerating] = useState(false); 
     const navigate = useNavigate();
 
     const jwtToken = localStorage.getItem('jwt_token');
@@ -52,10 +53,11 @@ const AddTeacher = () => {
             })
             .then((res) => {
                 if (res.status === 201) {
-                    // Reset form data
                     setTeacher("");
                     setSelectedCourses([]);
                     setSelectedLabs([]);
+
+                   alert("Data is submited");
 
                 }
             })
@@ -65,6 +67,7 @@ const AddTeacher = () => {
     };
     const generateTimetable = async (e) => {
         e.preventDefault();
+        setIsGenerating(true);
 
         axios
             .get("http://localhost:8080/api/generate",
@@ -81,6 +84,9 @@ const AddTeacher = () => {
             })
             .catch((error) => {
                 console.error(error);
+            })
+            .finally(() => {
+                setIsGenerating(false); 
             });
     }
 
@@ -101,7 +107,7 @@ const AddTeacher = () => {
     };
 
     return (
-        <div className='flex items-center justify-center lb:w-1/2 mx-20 pt-24 min-h-screen'>
+        <div className='flex flex-col items-center justify-center lb:w-1/2 mx-20 pt-24 min-h-screen'>
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
@@ -153,8 +159,11 @@ const AddTeacher = () => {
                     </div>
                 </form>
             )}
+            {isGenerating && <div>Generating timetable...</div>}
         </div>
     );
 };
 
 export default AddTeacher;
+
+
