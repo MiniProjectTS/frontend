@@ -27,10 +27,10 @@ const AddDepartment = () => {
 
     try {
       const jwtToken = localStorage.getItem('jwt_token');
-
+      const newJwtToken = jwtToken.trim();
       const response = await axios.post('http://localhost:8080/api/departments', selectedOption,{
         headers: {
-          Authorization: `Bearer ${jwtToken}`,
+          Authorization:`Bearer ${newJwtToken}`
         },
       });
       if (response.status == 201) {

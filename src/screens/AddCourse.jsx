@@ -35,9 +35,14 @@ const AddCourses = () => {
         const dataToSend = {
             name: formData
         };
-        console.log(dataToSend);
+        const jwtToken = localStorage.getItem('jwt_token');
+        const newJwtToken = jwtToken.trim();
         axios
-            .post("http://localhost:8080/api/courses", dataToSend)
+            .post("http://localhost:8080/api/courses", dataToSend,{
+                headers: {
+                    Authorization:`Bearer ${newJwtToken}`
+                  },
+            })
             .then((res) => {
                 setFormData([]);
                 if(res.status==201){

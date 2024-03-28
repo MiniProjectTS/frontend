@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
 
 const AddTeacher = () => {
     const [teacher, setTeacher] = useState("");
@@ -8,12 +9,21 @@ const AddTeacher = () => {
     const [allCourses, setAllCourses] = useState([]);
     const [allLabs, setAllLabs] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const jwtToken = localStorage.getItem('jwt_token');
+    const newJwtToken = jwtToken.trim();
 
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                const response = await axios.get('http://localhost:8080/api/data');
+
+                const response = await axios.get('http://localhost:8080/api/data', {
+                    headers: {
+                        Authorization: `Bearer ${newJwtToken}`
+                    },
+                });
                 setAllCourses(response.data.availableCourses);
                 setAllLabs(response.data.availableLabs);
             } catch (error) {
@@ -33,22 +43,46 @@ const AddTeacher = () => {
             coursesByTeacher: selectedCourses.map(course => ({ course })),
             labsByTeacher: selectedLabs.map(lab => ({ lab })),
         };
-        console.log(data);
+
         axios
-        .post("http://localhost:8080/api/teachers", data)
-        .then((res) => {
-            if(res.status === 201){
-                // Reset form data
-                setTeacher("");
-                setSelectedCourses([]);
-                setSelectedLabs([]);
-                // Navigate or perform other actions as needed
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+            .post("http://localhost:8080/api/teachers", data, {
+                headers: {
+                    Authorization: `Bearer ${newJwtToken}`
+                },
+            })
+            .then((res) => {
+                if (res.status === 201) {
+                    // Reset form data
+                    setTeacher("");
+                    setSelectedCourses([]);
+                    setSelectedLabs([]);
+
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
+    const generateTimetable = async (e) => {
+        e.preventDefault();
+
+        axios
+            .get("http://localhost:8080/api/generate",
+                {
+                    headers: {
+                        Authorization: `Bearer ${newJwtToken}`
+                    },
+                }
+            )
+            .then((res) => {
+                if (res.status === 201) {
+                    navigate('/getstarted');
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 
     const addCourse = (course) => {
         setSelectedCourses([...selectedCourses, course]);
@@ -115,6 +149,7 @@ const AddTeacher = () => {
                     </div>
                     <div className='flex gap-3 justify-center'>
                         <button className='text-white bg-black p-2 px-5 mt-3 rounded-2xl items-center justify-center' type='submit'>Submit</button>
+                        <button className='text-white bg-black p-2 px-5 mt-3 rounded-2xl items-center justify-center' onClick={generateTimetable} type='button'>Generate TimeTable</button>
                     </div>
                 </form>
             )}

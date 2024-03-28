@@ -20,10 +20,11 @@ export default function Login() {
       const response = await axios.post('http://localhost:8080/auth/login', data);
 
       if (response.data && response.data.jwtToken && response.data.username) { 
-        const { jwtToken, username } = response.data;
-        dispatch({ type: 'LOGIN', payload: { jwtToken, username } });
-        localStorage.setItem('jwt_token', jwtToken);
-        localStorage.setItem('username', username);
+        const {jwtToken,username} = response.data;
+        dispatch({ type: 'LOGIN', payload: {jwtToken,username} });
+        
+        localStorage.setItem('jwt_token',jwtToken);
+        localStorage.setItem('username',username);
         
         navigate('/getstarted');
         
