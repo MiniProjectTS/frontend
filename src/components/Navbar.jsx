@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../authContext'; 
 import { useAuthDispatch } from '../authContext';
 
@@ -7,6 +7,9 @@ export default function Navbar() {
  const { isAuthenticated } = useAuth(); 
  const dispatch = useAuthDispatch();
  const navigate = useNavigate();
+ const location = useLocation();
+
+ const isActive = (path) => location.pathname === path;
 
  const handleLogout = (e) => {
     e.preventDefault(); 
@@ -30,18 +33,18 @@ export default function Navbar() {
             <ul className='flex gap-10 justify-center'>
               {isAuthenticated ? (
                 <>
-                <li><Link to={'/getstarted'}>GetStarted</Link></li>
-                 <li><Link to={'/add-department'}>Add Department</Link></li>
-                 <li><Link to={'/add-course'}>Add Course</Link></li>
-                 <li><Link to={'/add-lab'}>Add Lab</Link></li>
-                 <li><Link to={'/add-teacher'}>Add Teacher</Link></li>
-                 <li className=' hover: cursor-pointer ' onClick={handleLogout}>Logout</li> {/* Use an anchor tag for logout */}
+                 <li><Link to={'/getstarted'} className={isActive('/getstarted') ? 'underline underline-offset-2' : ''}>GetStarted</Link></li>
+                 <li><Link to={'/add-department'} className={isActive('/add-department') ? 'underline underline-offset-2' : ''}>Add Department</Link></li>
+                 <li><Link to={'/add-course'} className={isActive('/add-course') ? 'underline underline-offset-2' : ''}>Add Course</Link></li>
+                 <li><Link to={'/add-lab'} className={isActive('/add-lab') ? 'underline underline-offset-2' : ''}>Add Lab</Link></li>
+                 <li><Link to={'/add-teacher'} className={isActive('/add-teacher') ? 'underline underline-offset-2' : ''}>Add Teacher</Link></li>
+                 <li className='hover:cursor-pointer' onClick={handleLogout}>Logout</li> {/* Use an anchor tag for logout */}
                 </>
               ) : (
                 <>
-                 <li><Link to={'/'}> Home </Link></li>
-                 <li><Link to={'/login'}> Login </Link></li>
-                 <li><Link to={'/signup'}> Signup </Link></li>
+                 <li><Link to={'/'} className={isActive('/') ? 'underline underline-offset-2' : ''}>Home</Link></li>
+                 <li><Link to={'/login'} className={isActive('/login') ? 'underline underline-offset-2' : ''}>Login</Link></li>
+                 <li><Link to={'/signup'} className={isActive('/signup') ? 'underline underline-offset-2' : ''}>Signup</Link></li>
                 </>
               )}
             </ul>
