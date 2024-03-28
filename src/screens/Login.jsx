@@ -25,7 +25,7 @@ export default function Login() {
         localStorage.setItem('jwt_token', jwtToken);
         localStorage.setItem('username', username);
         
-        navigate('/add-department');
+        navigate('/getstarted');
         
       } else {
         setErrorMessage('Invalid Credential');

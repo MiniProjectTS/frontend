@@ -10,6 +10,8 @@ import AddDepartment from './screens/AddDepartment';
 import AddCourse from './screens/AddCourse';
 import AddLab from './screens/AddLab';
 import AddTeacher from './screens/AddTeacher';
+import GetStarted from './screens/GetStarted';
+import Error from './screens/Error';
 
 export default function App() {
  return (
@@ -24,6 +26,8 @@ export default function App() {
           <Route path='/add-course' element={<AddCourse />} />
           <Route path='/add-lab' element={<AddLab />} />
           <Route path='/add-teacher' element={<AddTeacher />} />
+          <Route path='/getstarted' element={<GetStarted/>}/>
+          <Route path='*' element={<Error/>}/>
         </Routes>
         <Footer />
       </Router>

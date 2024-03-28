@@ -26,10 +26,13 @@ const AddDepartment = () => {
     e.preventDefault();
 
     try {
-      console.log(selectedOption);
+      const jwtToken = localStorage.getItem('jwt_token');
 
-      const response = await axios.post('http://localhost:8080/api/departments', selectedOption);
-
+      const response = await axios.post('http://localhost:8080/api/departments', selectedOption,{
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      });
       if (response.status == 201) {
         navigate('/add-course')
       }
